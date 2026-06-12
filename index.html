@@ -1,16 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <title>Job Interview Simulation</title>
-    
-
-  </head>
-    
-  <body>
-  <!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,7 +32,7 @@
             border-radius: 16px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
             width: 100%;
-            max-width: 550px;
+            max-width: 600px;
             padding: 25px;
             box-sizing: border-box;
         }
@@ -106,7 +95,7 @@
             border: 2px solid #e2e8f0;
             border-radius: 10px;
             padding: 14px 16px;
-            font-size: 15px;
+            font-size: 14px;
             text-align: left;
             cursor: pointer;
             display: flex;
@@ -114,7 +103,7 @@
             gap: 12px;
             transition: all 0.2s ease;
             color: var(--text);
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
         .option-btn:hover {
@@ -149,6 +138,7 @@
             line-height: 1.6;
             color: #475569;
             margin-bottom: 30px;
+            padding: 0 10px;
         }
 
         .final-score {
@@ -194,7 +184,7 @@
         </div>
 
         <div id="options-container" class="options-list">
-            <!-- Tombol pilihan pilihan ganda akan di-generate otomatis di sini -->
+            <!-- Tombol pilihan ganda akan di-generate otomatis di sini -->
         </div>
     </div>
 
@@ -211,100 +201,103 @@
 </div>
 
 <script>
-    // Struktur Alur Cerita Mengikuti Struktur Penilaian 🔵 🟡 🔴 Anda
+    // Struktur Alur Cerita
     const stepsData = [
-        // LEVEL 1
+        // LEVEL 1: FIRST IMPRESSION
         {
             level: "Level 1: First Impression",
             question: "What would you do before entering the HRD room?",
             options: [
-                { type: "blue", text: "Knock the door and wait for permission before entering", points: 2 },
-                { type: "yellow", text: "Knock the door and wait for someone to open it", points: 0 },
-                { type: "red", text: "Open the door without knocking", points: -2 }
+                { type: "blue", text: "Knock the door three times, wait politely for a clear permission or voice from inside before opening it.", points: 2 },
+                { type: "yellow", text: "Knock the door and immediately open it after a brief pause, assuming they are already expecting you.", points: 0 },
+                { type: "red", text: "Knock once and enter immediately because the interviewer is probably busy and expecting you.", points: -2 }
             ]
         },
         {
             level: "Level 1: First Impression",
             question: "HRD: \"Good morning. Please have a seat.\"",
             options: [
-                { type: "blue", text: "\"Good morning, Sir/Madam. Thank you.\"", points: 2 },
-                { type: "yellow", text: "\"Morning.\"", points: 0 },
-                { type: "red", text: "(Stay silent)", points: -2 }
+                { type: "blue", text: "Greet them back with a smile, maintain eye contact, say \"Good morning, Sir/Madam. Thank you,\" and sit down properly.", points: 2 },
+                { type: "yellow", text: "Say \"Good morning,\" sit down, and briefly organize your belongings before focusing on the interview.", points: 0 },
+                { type: "red", text: "Sit down quietly after a short nod and wait for the interviewer to begin asking questions.", points: -2 }
             ]
         },
-        // LEVEL 2
+
+        // LEVEL 2: INTERVIEW QUESTIONS
         {
             level: "Level 2: Interview Questions",
             question: "HRD: \"Tell me about yourself.\"",
             options: [
-                { type: "blue", text: "I am a vocational school graduate majoring in Computer and Network Engineering. I am interested in technology and always willing to learn new skills.", points: 2 },
-                { type: "yellow", text: "My name is ..... I am 18 years old.", points: 0 },
-                { type: "red", text: "I don't know.", points: -2 }
+                { type: "blue", text: "I am a fresh graduate from Vocational High School majoring in Computer and Network Engineering. During my study, I developed a strong interest in network configuration and troubleshooting, and I am always eager to learn new technologies.", points: 2 },
+                { type: "yellow", text: "My name is [Name], I am 18 years old, and I recently graduated from vocational school where I learned about computers and networking.", points: 0 },
+                { type: "red", text: "I graduated from vocational school and in my free time I enjoy playing games, watching movies, and spending time with friends.", points: -2 }
             ]
         },
         {
             level: "Level 2: Interview Questions",
             question: "HRD: \"Why do you want to work for our company?\"",
             options: [
-                { type: "blue", text: "Because I am interested in developing my skills and gaining professional experience in this field.", points: 2 },
-                { type: "yellow", text: "Because I need money.", points: 0 },
-                { type: "red", text: "Because my friend works here.", points: -2 }
+                { type: "blue", text: "I have been following your company’s growth, and I admire your commitment to innovation. I believe my technical background aligns with your goals, and I want to contribute to your team's success.", points: 2 },
+                { type: "yellow", text: "I am looking for a good place to begin my career, and your company has a strong reputation in this industry.", points: 0 },
+                { type: "red", text: "I found your vacancy online, and several people told me this company offers attractive benefits and salary.", points: -2 }
             ]
         },
         {
             level: "Level 2: Interview Questions",
             question: "HRD: \"What are your strengths?\"",
             options: [
-                { type: "blue", text: "I am responsible, punctual, and able to work well in a team.", points: 2 },
-                { type: "yellow", text: "I think I am quite good at many things.", points: 0 },
-                { type: "red", text: "I don't have any strengths.", points: -2 }
+                { type: "blue", text: "I am highly disciplined with time management, adaptable to new environments, and I always ensure my tasks are completed thoroughly through teamwork.", points: 2 },
+                { type: "yellow", text: "I am quite good at assembling computers, and I am comfortable working under pressure when necessary.", points: 0 },
+                { type: "red", text: "I consider myself a perfectionist, so I rarely make mistakes and can usually solve most problems on my own.", points: -2 }
             ]
         },
         {
             level: "Level 2: Interview Questions",
             question: "HRD: \"What is your biggest weakness?\"",
             options: [
-                { type: "blue", text: "Sometimes I spend too much time checking details, but I am learning to manage my time better.", points: 2 },
-                { type: "yellow", text: "I am not very good at speaking in public.", points: 0 },
-                { type: "red", text: "I am lazy.", points: -2 }
+                { type: "blue", text: "Sometimes I spend extra time double-checking my work to avoid errors, but I am improving this by setting clear deadlines for myself.", points: 2 },
+                { type: "yellow", text: "I can become nervous when speaking in front of large groups, but I have been practicing to improve my confidence.", points: 0 },
+                { type: "red", text: "I become stressed when things do not go according to plan, and it often affects my focus for a while.", points: -2 }
             ]
         },
-        // LEVEL 3
+
+        // LEVEL 3: SITUATIONAL QUESTIONS
         {
             level: "Level 3: Situational Questions",
-            question: "HRD: \"Imagine a customer complains about your work. What would you do?\"",
+            question: "HRD: \"Imagine a customer complains aggressively about your work. What would you do?\"",
             options: [
-                { type: "blue", text: "I would listen carefully, apologize if necessary, and try to solve the problem professionally.", points: 2 },
-                { type: "yellow", text: "I would explain that it was not entirely my fault.", points: 0 },
-                { type: "red", text: "I would argue with the customer.", points: -2 }
+                { type: "blue", text: "I would listen carefully without interrupting, apologize for the inconvenience, and focus on finding a professional solution.", points: 2 },
+                { type: "yellow", text: "I would listen to the complaint first and then explain what might have caused the issue before discussing possible solutions.", points: 0 },
+                { type: "red", text: "I would ask them to calm down first and refer the issue to my supervisor because dealing with difficult customers is not my main responsibility.", points: -2 }
             ]
         },
         {
             level: "Level 3: Situational Questions",
-            question: "HRD: \"Your supervisor asks you to learn a new task outside your comfort zone. What is your reaction?\"",
+            question: "HRD: \"Your supervisor asks you to handle a new task outside your comfort zone and major. What is your reaction?\"",
             options: [
-                { type: "blue", text: "I would be willing to learn and do my best.", points: 2 },
-                { type: "yellow", text: "I would try if I had enough time.", points: 0 },
-                { type: "red", text: "I would refuse because it is not my responsibility.", points: -2 }
+                { type: "blue", text: "I would see it as an opportunity to learn. I would research the task, ask for guidance when needed, and do my best.", points: 2 },
+                { type: "yellow", text: "I would accept the task, but I would explain that I may need additional time because it is outside my area of expertise.", points: 0 },
+                { type: "red", text: "I would suggest assigning the task to someone whose skills match the task better.", points: -2 }
             ]
         },
-        // LEVEL 4
+
+        // LEVEL 4: COMMUNICATION CHALLENGE
         {
             level: "Level 4: Communication Challenge",
             question: "HRD: \"Do you have any questions for us?\"",
             options: [
-                { type: "blue", text: "Yes. Could you tell me more about the training opportunities available for new employees?", points: 2 },
-                { type: "yellow", text: "How much will I be paid?", points: 0 },
-                { type: "red", text: "No, thank you.", points: -2 }
+                { type: "blue", text: "Yes, Sir/Madam. If I am selected for this role, what training opportunities or career development programs are available for new employees?", points: 2 },
+                { type: "yellow", text: "Yes. Could you tell me more about the probation period and the typical working schedule for this position?", points: 0 },
+                { type: "red", text: "No. I don't have any questions.", points: -2 }
             ]
         },
         {
             level: "Level 4: Communication Challenge",
             question: "HRD: \"Why should we hire you?\"",
             options: [
-                { type: "blue", text: "Because I am eager to learn, hardworking, and ready to contribute to the company.", points: 2 },
-                { type: "yellow", text: "Because I need this job.", points: 0 },
-                { type: "red", text: "I don't know.", points: -2 }
+                { type: "blue", text: "Because I possess the technical foundation required for this role, a strong work ethic, and a willingness to learn and contribute from day one.", points: 2 },
+                { type: "yellow", text: "Because I am hardworking, motivated, and ready to take responsibility if given the opportunity.", points: 0 },
+                { type: "red", text: "Because my qualifications match the requirements listed in the job advertisement.", points: -2 }
             ]
         }
     ];
@@ -324,15 +317,12 @@
         if (currentStep < stepsData.length) {
             const data = stepsData[currentStep];
             
-            // Render Meta Info
             levelIndicator.innerText = data.level;
             questionCounter.innerText = `Question ${currentStep + 1} / ${stepsData.length}`;
             hrdQuestion.innerText = data.question;
             
-            // Kosongkan Opsi Lama
             optionsContainer.innerHTML = "";
 
-            // Render Opsi Berdasarkan Simbol Warna
             data.options.forEach(opt => {
                 const btn = document.createElement("button");
                 btn.className = "option-btn";
@@ -368,7 +358,6 @@
 
         endScore.innerText = `Your Final Score: ${score} / 20`;
 
-        // Logika Evaluasi Hasil Akhir Sesuai Permintaan Anda
         if (score >= 16 && score <= 20) {
             endIcon.innerText = "🏆";
             endTitle.innerText = "Congratulations! You are hired.";
@@ -383,7 +372,6 @@
             endIcon.innerText = "⚠️";
             endTitle.innerText = "Needs Improvement";
             endDesc.innerText = "Your technical skills may be sufficient, but your communication and interview skills need more practice.";
-            styleColor = "#d97706";
             endTitle.style.color = "#d97706";
         } else {
             endIcon.innerText = "😔";
@@ -401,13 +389,9 @@
         loadStep();
     }
 
-    // Inisialisasi Game pertama kali dijalankan
+    // Initialize Game
     loadStep();
 </script>
 
 </body>
-</html>
-    
-  </body>
-  
 </html>

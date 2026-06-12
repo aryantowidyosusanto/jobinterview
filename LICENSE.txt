@@ -1,6 +1,7 @@
 The MIT License (MIT)
 
-Copyright (c) 2026 Aryanto Widyo Susanto (https://codepen.io/Aryanto-Widyo-Susanto/pen/vEgKWXG)
+Copyright (c) 2026 Aryanto Widyo Susanto (https://codepen.io/Aryanto-Widyo-Susanto/pen/NPdryjN)
+Fork of an original work Job Interview Simulation (https://codepen.io/Aryanto-Widyo-Susanto/pen/vEgKWXG)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
