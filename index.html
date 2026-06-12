@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Job Interview Simulation</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Interview Simulation RPG</title>
+    <style>
+        :root {
+            --primary: #1e40af;
+            --blue-choice: #2563eb;
+            --yellow-choice: #d97706;
+            --red-choice: #dc2626;
+            --bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .game-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 550px;
+            padding: 25px;
+            box-sizing: border-box;
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+
+        .level-badge {
+            background-color: var(--primary);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .score-badge {
+            font-size: 14px;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .hrd-box {
+            background-color: #f8fafc;
+            border-left: 5px solid var(--primary);
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .hrd-title {
+            font-size: 12px;
+            font-weight: bold;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .hrd-text {
+            font-size: 16px;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 14px 16px;
+            font-size: 15px;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            transition: all 0.2s ease;
+            color: var(--text);
+            line-height: 1.4;
+        }
+
+        .option-btn:hover {
+            background-color: #f8fafc;
+            transform: translateY(-1px);
+        }
+
+        .icon-blue { color: var(--blue-choice); font-size: 18px; }
+        .icon-yellow { color: var(--yellow-choice); font-size: 18px; }
+        .icon-red { color: var(--red-choice); font-size: 18px; }
+
+        /* Screen Akhir */
+        .ending-screen {
+            display: none;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .ending-badge {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .ending-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .ending-desc {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #475569;
+            margin-bottom: 30px;
+        }
+
+        .final-score {
+            font-size: 18px;
+            font-weight: bold;
+            background-color: #f1f5f9;
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: inline-block;
+            margin-bottom: 25px;
+        }
+
+        .btn-restart {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-restart:hover {
+            background-color: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="game-card">
+    <!-- Layar Gameplay Simulasi -->
+    <div id="gameplay-screen">
+        <div class="game-header">
+            <div id="level-indicator" class="level-badge">Level 1: First Impression</div>
+            <div id="question-counter" class="score-badge">Question 1/10</div>
+        </div>
+
+        <div class="hrd-box">
+            <div class="hrd-title">HRD / Interviewer</div>
+            <div id="hrd-question" class="hrd-text">Loading prompt...</div>
+        </div>
+
+        <div id="options-container" class="options-list">
+            <!-- Tombol pilihan pilihan ganda akan di-generate otomatis di sini -->
+        </div>
+    </div>
+
+    <!-- Layar Ending / Hasil Akhir -->
+    <div id="ending-screen" class="ending-screen">
+        <div id="end-icon" class="ending-badge">🏆</div>
+        <div id="end-title" class="ending-title">Ending Title</div>
+        <div id="end-desc" class="ending-desc">Ending description goes here.</div>
+        <div id="end-score" class="final-score">Your Score: 0 / 20</div>
+        <div>
+            <button class="btn-restart" onclick="restartSimulation()">Try Again</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Struktur Alur Cerita Mengikuti Struktur Penilaian 🔵 🟡 🔴 Anda
+    const stepsData = [
+        // LEVEL 1
+        {
+            level: "Level 1: First Impression",
+            question: "What would you do before entering the HRD room?",
+            options: [
+                { type: "blue", text: "Knock the door and wait for permission before entering", points: 2 },
+                { type: "yellow", text: "Knock the door and wait for someone to open it", points: 0 },
+                { type: "red", text: "Open the door without knocking", points: -2 }
+            ]
+        },
+        {
+            level: "Level 1: First Impression",
+            question: "HRD: \"Good morning. Please have a seat.\"",
+            options: [
+                { type: "blue", text: "\"Good morning, Sir/Madam. Thank you.\"", points: 2 },
+                { type: "yellow", text: "\"Morning.\"", points: 0 },
+                { type: "red", text: "(Stay silent)", points: -2 }
+            ]
+        },
+        // LEVEL 2
+        {
+            level: "Level 2: Interview Questions",
+            question: "HRD: \"Tell me about yourself.\"",
+            options: [
+                { type: "blue", text: "I am a vocational school graduate majoring in Computer and Network Engineering. I am interested in technology and always willing to learn new skills.", points: 2 },
+                { type: "yellow", text: "My name is ..... I am 18 years old.", points: 0 },
+                { type: "red", text: "I don't know.", points: -2 }
+            ]
+        },
+        {
+            level: "Level 2: Interview Questions",
+            question: "HRD: \"Why do you want to work for our company?\"",
+            options: [
+                { type: "blue", text: "Because I am interested in developing my skills and gaining professional experience in this field.", points: 2 },
+                { type: "yellow", text: "Because I need money.", points: 0 },
+                { type: "red", text: "Because my friend works here.", points: -2 }
+            ]
+        },
+        {
+            level: "Level 2: Interview Questions",
+            question: "HRD: \"What are your strengths?\"",
+            options: [
+                { type: "blue", text: "I am responsible, punctual, and able to work well in a team.", points: 2 },
+                { type: "yellow", text: "I think I am quite good at many things.", points: 0 },
+                { type: "red", text: "I don't have any strengths.", points: -2 }
+            ]
+        },
+        {
+            level: "Level 2: Interview Questions",
+            question: "HRD: \"What is your biggest weakness?\"",
+            options: [
+                { type: "blue", text: "Sometimes I spend too much time checking details, but I am learning to manage my time better.", points: 2 },
+                { type: "yellow", text: "I am not very good at speaking in public.", points: 0 },
+                { type: "red", text: "I am lazy.", points: -2 }
+            ]
+        },
+        // LEVEL 3
+        {
+            level: "Level 3: Situational Questions",
+            question: "HRD: \"Imagine a customer complains about your work. What would you do?\"",
+            options: [
+                { type: "blue", text: "I would listen carefully, apologize if necessary, and try to solve the problem professionally.", points: 2 },
+                { type: "yellow", text: "I would explain that it was not entirely my fault.", points: 0 },
+                { type: "red", text: "I would argue with the customer.", points: -2 }
+            ]
+        },
+        {
+            level: "Level 3: Situational Questions",
+            question: "HRD: \"Your supervisor asks you to learn a new task outside your comfort zone. What is your reaction?\"",
+            options: [
+                { type: "blue", text: "I would be willing to learn and do my best.", points: 2 },
+                { type: "yellow", text: "I would try if I had enough time.", points: 0 },
+                { type: "red", text: "I would refuse because it is not my responsibility.", points: -2 }
+            ]
+        },
+        // LEVEL 4
+        {
+            level: "Level 4: Communication Challenge",
+            question: "HRD: \"Do you have any questions for us?\"",
+            options: [
+                { type: "blue", text: "Yes. Could you tell me more about the training opportunities available for new employees?", points: 2 },
+                { type: "yellow", text: "How much will I be paid?", points: 0 },
+                { type: "red", text: "No, thank you.", points: -2 }
+            ]
+        },
+        {
+            level: "Level 4: Communication Challenge",
+            question: "HRD: \"Why should we hire you?\"",
+            options: [
+                { type: "blue", text: "Because I am eager to learn, hardworking, and ready to contribute to the company.", points: 2 },
+                { type: "yellow", text: "Because I need this job.", points: 0 },
+                { type: "red", text: "I don't know.", points: -2 }
+            ]
+        }
+    ];
+
+    let currentStep = 0;
+    let score = 0;
+
+    const levelIndicator = document.getElementById("level-indicator");
+    const questionCounter = document.getElementById("question-counter");
+    const hrdQuestion = document.getElementById("hrd-question");
+    const optionsContainer = document.getElementById("options-container");
+
+    const gameplayScreen = document.getElementById("gameplay-screen");
+    const endingScreen = document.getElementById("ending-screen");
+
+    function loadStep() {
+        if (currentStep < stepsData.length) {
+            const data = stepsData[currentStep];
+            
+            // Render Meta Info
+            levelIndicator.innerText = data.level;
+            questionCounter.innerText = `Question ${currentStep + 1} / ${stepsData.length}`;
+            hrdQuestion.innerText = data.question;
+            
+            // Kosongkan Opsi Lama
+            optionsContainer.innerHTML = "";
+
+            // Render Opsi Berdasarkan Simbol Warna
+            data.options.forEach(opt => {
+                const btn = document.createElement("button");
+                btn.className = "option-btn";
+                
+                let symbol = "🔵";
+                let iconClass = "icon-blue";
+                if(opt.type === "yellow") { symbol = "🟡"; iconClass = "icon-yellow"; }
+                if(opt.type === "red") { symbol = "🔴"; iconClass = "icon-red"; }
+
+                btn.innerHTML = `<span class="${iconClass}">${symbol}</span> <span>${opt.text}</span>`;
+                btn.onclick = () => selectOption(opt.points);
+                optionsContainer.appendChild(btn);
+            });
+        } else {
+            triggerEnding();
+        }
+    }
+
+    function selectOption(points) {
+        score += points;
+        currentStep++;
+        loadStep();
+    }
+
+    function triggerEnding() {
+        gameplayScreen.style.display = "none";
+        endingScreen.style.display = "block";
+
+        const endIcon = document.getElementById("end-icon");
+        const endTitle = document.getElementById("end-title");
+        const endDesc = document.getElementById("end-desc");
+        const endScore = document.getElementById("end-score");
+
+        endScore.innerText = `Your Final Score: ${score} / 20`;
+
+        // Logika Evaluasi Hasil Akhir Sesuai Permintaan Anda
+        if (score >= 16 && score <= 20) {
+            endIcon.innerText = "🏆";
+            endTitle.innerText = "Congratulations! You are hired.";
+            endDesc.innerText = "The interviewer was impressed by your professionalism, communication skills, and positive attitude.";
+            endTitle.style.color = "#16a34a";
+        } else if (score >= 8 && score <= 15) {
+            endIcon.innerText = "👍";
+            endTitle.innerText = "Promising Candidate";
+            endDesc.innerText = "The interviewer sees potential in you. You may be invited for another interview.";
+            endTitle.style.color = "#2563eb";
+        } else if (score >= 0 && score <= 7) {
+            endIcon.innerText = "⚠️";
+            endTitle.innerText = "Needs Improvement";
+            endDesc.innerText = "Your technical skills may be sufficient, but your communication and interview skills need more practice.";
+            styleColor = "#d97706";
+            endTitle.style.color = "#d97706";
+        } else {
+            endIcon.innerText = "😔";
+            endTitle.innerText = "Application Rejected";
+            endDesc.innerText = "The interviewer believes you are not yet ready for the workplace. Try again and improve your interview skills.";
+            endTitle.style.color = "#dc2626";
+        }
+    }
+
+    function restartSimulation() {
+        currentStep = 0;
+        score = 0;
+        gameplayScreen.style.display = "block";
+        endingScreen.style.display = "none";
+        loadStep();
+    }
+
+    // Inisialisasi Game pertama kali dijalankan
+    loadStep();
+</script>
+
+</body>
+</html>
+    
+  </body>
+  
+</html>
